@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Entidades;
+using Negocio;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +15,21 @@ namespace Jardineria
 {
     public partial class Form1 : Form
     {
+        Tienda tienda = new Tienda();
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Pago p = new Pago(int.Parse(textBox1.Text), textBox2.Text, textBox3.Text, dateTimePicker1.Value, decimal.Parse(textBox4.Text));
+            tienda.InsertarPago(p);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            listBox1.DataSource = tienda.ObtenerPagos();
         }
     }
 }

@@ -7,13 +7,15 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-
+using System.Diagnostics;
+using System.Web.Script.Serialization;
+using System.Text;
 
 namespace Capa_Datos
 {
         public class PagoADO : ADO
         {
-            // Leo todos los pagos dela BD
+            // Leo todos los pagos de la BD
             public List<Pago> LeerPagos()
             {
                 List<Pago> listaUsuarios = new List<Pago>();
@@ -60,49 +62,39 @@ namespace Capa_Datos
             }
             
         // Creo un nuevo pago en la BD
-            public async Task<bool> InsertarPagoAsync(string nom, string pas)
+            public bool InsertarPago(int codigo, string formaPago, string transaccion, DateTime fechaPago, decimal total)
             {
-                try
-                {
-                
-                Pago pay = new Pago();// CAMBIAR A LOS PARAMETROS QUE CORRESPONDAN
+            try
+            {
+                Pago pay = new Pago(codigo, formaPago, transaccion, fechaPago, total);
+               
+                var response = client.PostAsync("api/pagos", new StringContent(JsonConvert.SerializeObject(pay),
+                        Encoding.UTF8, "application/json")).Result;
 
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "api/pagos");
-                string json = JsonConvert.SerializeObject(pay);
-                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                HttpClient http = new HttpClient();
-                HttpResponseMessage response = await http.SendAsync(request);
+                // El objeto retornado lo podemos obtener con JsonConvert.DeserializeObject<Pago>(response.Content.ReadAsStringAsync().Result
 
                 if (response.IsSuccessStatusCode)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                catch (Exception e)
                 {
-                    Console.WriteLine("Error " + e);
+                    return true;
                 }
-
-                return true;
+                else
+                {
+                    return false;
+                }
             }
-            public async Task<bool> ActualizarPagoAsync(Pago pay)
+            catch (Exception e)
+            {
+                Console.WriteLine("Error " + e);
+                return false;
+            }
+        }
+            public bool ActualizarPago(Pago pay)
             {
                 try
                 {
-                
-                //HttpResponseMessage response = client.PutAsJsonAsync("api/pagos/" + pay.Id_Transaccion, Pago).Result;
 
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, "api/pagos");
-                string json = JsonConvert.SerializeObject(pay);
-                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                HttpClient http = new HttpClient();
-                HttpResponseMessage response = await http.SendAsync(request);
+                var response = client.PutAsync("api/pagos", new StringContent(JsonConvert.SerializeObject(pay),
+                        Encoding.UTF8, "application/json")).Result;
 
                 if (response.IsSuccessStatusCode)
                         return true;
@@ -119,7 +111,6 @@ namespace Capa_Datos
             {
                 try
                 {
-
                     HttpResponseMessage response = client.DeleteAsync("api/pagos/" + id).Result;
 
                     if (response.IsSuccessStatusCode)
