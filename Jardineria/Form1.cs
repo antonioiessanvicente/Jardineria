@@ -2,13 +2,6 @@
 using Negocio;
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Jardineria
@@ -30,6 +23,14 @@ namespace Jardineria
         private void button2_Click(object sender, EventArgs e)
         {
             listBox1.DataSource = tienda.ObtenerPagos();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Pago p = new Pago(int.Parse(textBox1.Text), textBox2.Text, textBox3.Text, dateTimePicker1.Value, decimal.Parse(textBox4.Text));
+            listBox1.Items.Clear();
+            listBox1.Items.Add(tienda.ActualizarPago(p));
+
         }
     }
 }

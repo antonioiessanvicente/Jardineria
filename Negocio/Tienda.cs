@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Capa_Datos;
+﻿using Capa_Datos;
 using Entidades;
+using System.Collections.Generic;
 
 namespace Negocio
 {
@@ -13,8 +8,8 @@ namespace Negocio
     {
         public List<Pago> ObtenerPagos()
         {
-            PagoADO p = new PagoADO(); 
-            
+            PagoADO p = new PagoADO();
+
             return p.LeerPagos();
         }
 
@@ -22,7 +17,15 @@ namespace Negocio
         {
             PagoADO pA = new PagoADO();
             bool resultado = pA.InsertarPago(p.Codigo_Cliente, p.Forma_pago, p.Id_Transaccion, p.Fecha_Pago, p.Total);
-            
+
+            return resultado;
+        }
+
+        public Pago ActualizarPago(Pago p)
+        {
+            PagoADO pA = new PagoADO();
+            Pago resultado = pA.ActualizarPago(p);
+
             return resultado;
         }
 
