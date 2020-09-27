@@ -28,7 +28,7 @@ namespace APIJardineria.Controllers
         }
 
         // GET: api/Pagos/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] //id_transaccion
         public async Task<ActionResult<Pago>> GetPago(string id)
         {
             var pago = await _context.Pago.FindAsync(id);

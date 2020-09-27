@@ -29,9 +29,14 @@ namespace APIJardineria.Controllers
 
         // GET: api/Detalle_Pedido/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Detalle_Pedido>> GetDetalle_Pedido(int id)
+        public async Task<ActionResult<IEnumerable<Detalle_Pedido>>> GetDetalle_Pedido([FromRoute] int id)
         {
-            var detalle_Pedido = await _context.Detalle_Pedido.FindAsync(id);
+           if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var detalle_Pedido =  await _context.Detalle_Pedido.Where(x => x.Codigo_Pedido == id).ToListAsync();
 
             if (detalle_Pedido == null)
             {
@@ -40,6 +45,28 @@ namespace APIJardineria.Controllers
 
             return detalle_Pedido;
         }
+
+        // GET: api/Detalle_Pedido/5/1
+        [HttpGet("{id:int}/{numero_linea:int}")]
+        public async Task<IActionResult> GetDetalle_Pedido([FromRoute] int id, int numero_linea)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            object[] param = new object[] { id, numero_linea };
+            var detalle = await _context.Detalle_Pedido.FindAsync(param);
+
+            if (detalle == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(detalle);
+        }
+
+
 
         // PUT: api/Detalle_Pedido/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

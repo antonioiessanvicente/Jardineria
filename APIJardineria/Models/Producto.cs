@@ -15,7 +15,7 @@ namespace APIJardineria.Models
  
         public string Dimensiones { get; set; }
         public string Proveedor { get; set; }
-        public string Descripción { get; set; }
+        public string Descripcion { get; set; }
         public int Cantidad_en_Stock { get; set; }
         public decimal Precio_venta { get; set; }
         public decimal? Precio_proveedor { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,6 +17,9 @@ namespace APIJardineria.Models
 
         [ForeignKey("cliente")]
         public int Codigo_Cliente { get; set; }
-        
+
+        //Colección para tener las líneas del pedido. No está en la base de datos.
+       // public ICollection<Detalle_Pedido> LineasPedido { get; set; }
+
     }
 }

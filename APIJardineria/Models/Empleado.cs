@@ -11,13 +11,13 @@ namespace APIJardineria.Models
         public string Apellido1 { get; set; }
         public string Apellido2 { get; set; }
         public string Extension { get; set; }
-        public string Fax { get; set; }
+        public string Email { get; set; }
 
         [ForeignKey("oficina")]
         public string Codigo_Oficina { get; set; }
 
         [ForeignKey("empleado")]
-        public int Codigo_Jefe { get; set; }
+        public int? Codigo_Jefe { get; set; }
         
         public string Puesto { get; set; }
     }

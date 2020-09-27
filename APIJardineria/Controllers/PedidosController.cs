@@ -29,8 +29,10 @@ namespace APIJardineria.Controllers
 
         // GET: api/Pedidos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Pedido>> GetPedido(int id)
+        public async Task<ActionResult<IEnumerable<Pedido>>> GetPedido(int id)
         {
+            //var pedido = await _context.Pedido.Include(x => x.LineasPedido).FirstOrDefaultAsync(x => x.Codigo_Cliente == id);
+            
             var pedido = await _context.Pedido.FindAsync(id);
 
             if (pedido == null)
@@ -38,7 +40,7 @@ namespace APIJardineria.Controllers
                 return NotFound();
             }
 
-            return pedido;
+            return Ok(pedido);
         }
 
         // PUT: api/Pedidos/5

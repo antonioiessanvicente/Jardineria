@@ -11,7 +11,7 @@ namespace APIJardineria.Models
         [Key]
         [ForeignKey("gama_productos")]
         public string Gama { get; set; }
-        public string Descripcion { get; set; }
+        public string Descripcion_Texto { get; set; }
         public string Descripcion_HTML { get; set; }
         
         [StringLength(256, ErrorMessage = "La ruta de la imagen no puede exceder de 256 caractéres")]
