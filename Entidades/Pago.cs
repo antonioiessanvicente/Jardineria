@@ -21,6 +21,7 @@ namespace Entidades
             Id_Transaccion = transaccion;
             Fecha_Pago = fechaPago;
             Total = total;
+            /////
         }
 
         public override string ToString()
