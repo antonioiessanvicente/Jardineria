@@ -28,8 +28,8 @@ namespace Jardineria
         private void button3_Click(object sender, EventArgs e)
         {
             Pago p = new Pago(int.Parse(textBox1.Text), textBox2.Text, textBox3.Text, dateTimePicker1.Value, decimal.Parse(textBox4.Text));
-            listBox1.Items.Clear();
-            listBox1.Items.Add(tienda.ActualizarPago(p));
+            listBox1.DataSource = null;
+            listBox1.DataSource = tienda.ObtenerPagos();
 
         }
     }

@@ -20,5 +20,7 @@ namespace APIJardineria.Models
         public int? Codigo_Jefe { get; set; }
         
         public string Puesto { get; set; }
+
+        public string Pass { get; set; }
     }
 }

@@ -72,8 +72,44 @@ namespace APIJardineria.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDetalle_Pedido(int id, Detalle_Pedido detalle_Pedido)
+        //public async Task<IActionResult> PutDetalle_Pedido(int id, Detalle_Pedido detalle_Pedido)
+        //{
+        //    if (id != detalle_Pedido.Codigo_Pedido)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _context.Entry(detalle_Pedido).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!Detalle_PedidoExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
+        //}
+
+
+        // PUT: api/Detalle_Pedido/5/1
+        [HttpPut("{id:int}/{numero_linea:int}")]
+        public async Task<IActionResult> PutDetalle_Pedido([FromRoute] int id, [FromBody] Detalle_Pedido detalle_Pedido)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (id != detalle_Pedido.Codigo_Pedido)
             {
                 return BadRequest();
@@ -97,8 +133,9 @@ namespace APIJardineria.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(detalle_Pedido);
         }
+
 
         // POST: api/Detalle_Pedido
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -126,11 +163,33 @@ namespace APIJardineria.Controllers
             return CreatedAtAction("GetDetalle_Pedido", new { id = detalle_Pedido.Codigo_Pedido }, detalle_Pedido);
         }
 
-        // DELETE: api/Detalle_Pedido/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Detalle_Pedido>> DeleteDetalle_Pedido(int id)
+        //// DELETE: api/Detalle_Pedido/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Detalle_Pedido>> DeleteDetalle_Pedido(int id)
+        //{
+        //    var detalle_Pedido = await _context.Detalle_Pedido.FindAsync(id);
+        //    if (detalle_Pedido == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Detalle_Pedido.Remove(detalle_Pedido);
+        //    await _context.SaveChangesAsync();
+
+        //    return detalle_Pedido;
+        //}
+        // DELETE: api/Detalle_Pedido/5/1
+        [HttpDelete("{id:int}/{numero_linea:int}")]
+        public async Task<IActionResult> DeleteDetalle_Pedido([FromRoute] int id, int id_linea)
         {
-            var detalle_Pedido = await _context.Detalle_Pedido.FindAsync(id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            object[] param = new object[] { id, id_linea };
+            var detalle_Pedido = await _context.Detalle_Pedido.FindAsync(param);
+
             if (detalle_Pedido == null)
             {
                 return NotFound();
@@ -139,9 +198,8 @@ namespace APIJardineria.Controllers
             _context.Detalle_Pedido.Remove(detalle_Pedido);
             await _context.SaveChangesAsync();
 
-            return detalle_Pedido;
+            return Ok(detalle_Pedido);
         }
-
         private bool Detalle_PedidoExists(int id)
         {
             return _context.Detalle_Pedido.Any(e => e.Codigo_Pedido == id);
