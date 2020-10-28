@@ -22,5 +22,6 @@ namespace APIJardineria.Models
         [ForeignKey("empleado")]
         public int? Codigo_Empleado_Rep_Ventas { get; set; }
         public decimal? Limite_Credito { get; set; }
+        public string Pass { get; set; }
     }
 }
