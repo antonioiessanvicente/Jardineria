@@ -32,7 +32,7 @@ namespace APIJardineria
             services.AddControllers();
             // MODIFICACIÓN DE LA CADENA DE CONEXION
             services.AddDbContext<MySQLDbContext>(opt =>
-                opt.UseMySql("server=192.168.0.10;database=jardineriaonline;user=jardineria;password=1234"));
+                opt.UseMySql("server=localhost;database=jardineriaonline;user=jardineria;password=1234"));
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 

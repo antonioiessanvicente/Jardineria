@@ -70,7 +70,7 @@ namespace APIJardineria.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(gama_Producto);
         }
 
         // POST: api/Gama_Producto

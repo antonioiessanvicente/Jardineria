@@ -72,7 +72,7 @@ namespace APIJardineria.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(pedido);
         }
 
         // POST: api/Pedidos

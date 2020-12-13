@@ -180,14 +180,14 @@ namespace APIJardineria.Controllers
         //}
         // DELETE: api/Detalle_Pedido/5/1
         [HttpDelete("{id:int}/{numero_linea:int}")]
-        public async Task<IActionResult> DeleteDetalle_Pedido([FromRoute] int id, int id_linea)
+        public async Task<IActionResult> DeleteDetalle_Pedido([FromRoute] int id, int numero_linea)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            object[] param = new object[] { id, id_linea };
+            object[] param = new object[] { id, numero_linea };
             var detalle_Pedido = await _context.Detalle_Pedido.FindAsync(param);
 
             if (detalle_Pedido == null)

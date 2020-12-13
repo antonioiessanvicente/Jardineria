@@ -70,7 +70,7 @@ namespace APIJardineria.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(empleado);
         }
 
         // POST: api/Empleados

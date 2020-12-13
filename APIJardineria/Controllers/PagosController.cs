@@ -68,7 +68,7 @@ namespace APIJardineria.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(pago);
         }
 
         // POST: api/Pagos
